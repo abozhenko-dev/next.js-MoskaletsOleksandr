@@ -1,0 +1,10 @@
+.container {
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 28px;
+    &:first-letter {
+        text-transform: uppercase;
+    }
+}
