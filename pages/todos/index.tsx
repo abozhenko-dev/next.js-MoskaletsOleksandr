@@ -10,7 +10,7 @@ type Props = {
   items: Todo[]
 }
 
-const ToDos = ({ items }: Props) => (
+const ToDosPage = ({ items }: Props) => (
   <Layout title="Todos | Next.js">
     <section>
       <Title title='Todos List' />
@@ -28,4 +28,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-export default ToDos;
+export default ToDosPage;
