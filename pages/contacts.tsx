@@ -1,36 +1,20 @@
-import { useState } from 'react';
-import ContactForm from '../components/ContactForm/ContactForm';
-import ContactList from '../components/ContactList/ContactList';
-import Layout from '../components/Layout/Layout'
-import Title from '../components/Title/Title'
-import { Contact } from '../interfaces';
-import styles from '../styles/Contacts.module.scss'
+import { ReactElement } from 'react';
+import {MainLayout} from '../src/layouts'
+import { NextPageWithLayout } from '../src/utils';
+import Contacts from '../src/pages/contacts';
+import { Meta } from '../src/components/utils';
 
-const ContactsPage = () => {
-  const [contacts, setContacts] = useState<Contact[]>([
-    {
-      id: 'sfsdf',
-      name: 'Example Name',
-      email: 'example@mail.com',
-      gender: 'female'
-    }
-  ]);
-  
-    const handleAddContact = (newContact: Contact): void => {
-    setContacts([...contacts, newContact]);
-  };
+const Page: NextPageWithLayout = () => (
+  <>
+    <Meta meta={{ title: 'Contacts | Next.js' }} />
+    <Contacts />
+  </>
+);
 
-  return (
-  <Layout title="Contacts | Next.js">
-    <section>
-        <Title title='Contacts' />
-        <div className={styles.container}>
-          <ContactForm handleAddContact={handleAddContact} />
-          <ContactList contacts={contacts} />
-        </div>
-    </section>
-  </Layout>
-)
-}
+Page.getLayout = (page: ReactElement) => (
+  <MainLayout>
+    {page}
+  </MainLayout>
+);
 
-export default ContactsPage
+export default Page

@@ -1,13 +1,20 @@
 import React from "react";
-import '../styles/global.scss'
+import '../src/scss/globals.scss'
+import { NextPageWithLayout } from "../src/utils";
 
 type Props = {
-  Component: React.ComponentType
+  Component: NextPageWithLayout;
   pageProps: any // поки не знаю який тут тип прописувати
 }
 
-const App = ({ Component, pageProps }: Props) => (
-    <Component {...pageProps} />
-)
+const App = ({ Component, pageProps }: Props) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  return (
+    <>
+      {getLayout(<Component {...pageProps} />)}
+    </>
+  )
+}
 
 export default App

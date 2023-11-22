@@ -1,39 +1,44 @@
 import { GetServerSideProps } from "next";
-import Link from "next/link";
-import { useRouter } from "next/router"
-import Layout from "../../components/Layout/Layout";
-import ToDoDetail from "../../components/ToDoDetail/ToDoDetail";
-import { Todo } from "../../interfaces";
-import { getToDoById } from "../../services/todo.service";
+import {MainLayout} from "../../src/layouts";
+import { ToDoService } from "../../src/services/todo.service";
+import { ITodo, NextPageWithLayout } from "../../src/utils";
+import { ReactElement } from "react";
+import ToDo from "../../src/pages/todo";
+import { Meta } from "../../src/components/utils";
+import { useRouter } from "next/router";
 
 type Props = {
-  todo: Todo
-}
+  todo: ITodo
+};
 
-const ToDoPage = ({todo}: Props) => {
+const Page: NextPageWithLayout<Props> = ({ todo }) => {
   const router = useRouter();
   const { id } = router.query;
 
   return (
-    <Layout title={`Todo #${id}  | Next.js`}>
-      <section>
-        <Link href="/todos">
-          Back to Todos
-        </Link>
-        <ToDoDetail todo={todo} />
-      </section>
-    </Layout>
+    <>
+      <Meta meta={{ title: `Todo #${id}  | Next.js` }} />
+      <ToDo todo={todo} />
+    </>
   )
-}
+};
+
+
+Page.getLayout = (page: ReactElement) => (
+  <MainLayout>
+    {page}
+  </MainLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params;
-  const todo: Todo = await getToDoById(id as string);
+  const { data } = await ToDoService.getOneById(id as string);
+
   return {
     props: {
-      todo
+      todo: data
     }
   }
 }
 
-export default ToDoPage;
+export default Page;

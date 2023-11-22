@@ -1,31 +1,36 @@
-import { GetServerSideProps } from 'next'
-
-import { Todo } from '../../interfaces'
-import Title from '../../components/Title/Title'
-import { getAllToDos } from '../../services/todo.service'
-import ToDoList from '../../components/ToDoList/ToDoList'
-import Layout from '../../components/Layout/Layout'
+import {MainLayout} from '../../src/layouts'
+import { ITodo, NextPageWithLayout } from '../../src/utils'
+import { ReactElement } from 'react'
+import ToDos from '../../src/pages/todos';
+import { GetServerSideProps } from 'next';
+import { ToDoService } from '../../src/services/todo.service';
+import { Meta } from '../../src/components/utils';
 
 type Props = {
-  items: Todo[]
+  items: ITodo[]
 }
 
-const ToDosPage = ({ items }: Props) => (
-  <Layout title="Todos | Next.js">
-    <section>
-      <Title title='Todos List' />
-      <ToDoList items={items} />
-    </section>
-  </Layout>
-)
+const Page: NextPageWithLayout<Props> = ({ items }) => (
+  <>
+    <Meta meta={{ title: 'ToDos | Next.js' }} />
+    <ToDos items={items} />
+  </>
+);
+
+Page.getLayout = (page: ReactElement) => (
+  <MainLayout>
+    {page}
+  </MainLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const items: Todo[] = await getAllToDos();
+  const { data }  = await ToDoService.getAll();
+
   return {
     props: {
-      items: items.slice(0, 30)
+      items: data.slice(0, 30)
     }
   }
-}
+};
 
-export default ToDosPage;
+export default Page;
