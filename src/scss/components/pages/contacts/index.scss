@@ -1,0 +1,7 @@
+.contacts {
+    & > div {
+        display: flex;
+        justify-content: space-around;
+        padding-block: 3rem;
+    }
+}

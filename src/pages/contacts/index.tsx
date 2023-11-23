@@ -3,7 +3,6 @@ import ContactForm from '../../components/sections/contactForm';
 import ContactList from '../../components/sections/contactList';
 import Title from '../../components/ui/title';
 import { IContact } from '../../utils';
-import styles from '../../scss/Contacts.module.scss'
 
 const Contacts = () => {
     const [contacts, setContacts] = useState<IContact[]>([
@@ -24,9 +23,9 @@ const Contacts = () => {
     };
 
     return (
-        <section>
+        <section className='contacts'>
             <Title title='Contacts' />
-            <div className={styles.container}>
+            <div>
                 <ContactForm handleAddContact={handleAddContact} />
                 <ContactList contacts={contacts} />
             </div>

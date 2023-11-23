@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { Gender, IContact} from "../../../utils";
 import { nanoid } from "nanoid";
-import styles from './ContactForm.module.scss'
 
 type Props = {
     handleAddContact: (newContact: IContact) => void;
@@ -36,10 +35,10 @@ const ContactForm = ({handleAddContact}: Props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form} >
-            <div className={styles.field} >
-                <label htmlFor="name" className={styles.label} >Name:</label>
-                <input id="name" className={styles.input} {...register('name', {
+        <form onSubmit={handleSubmit(onSubmit)} className='contact-form' >
+            <div className='field' >
+                <label htmlFor="name">Name:</label>
+                <input id="name" className='input' {...register('name', {
                     required: 'Name is rerequired',
                     maxLength: {
                         value: 49,
@@ -50,9 +49,9 @@ const ContactForm = ({handleAddContact}: Props) => {
                         message: 'Enter only letters'
                     }
                 })} />           
-                {errors?.name && <p className={styles.error} >{errors?.name?.message || 'Error!'}</p>}
+                {errors?.name && <p className='error' >{errors?.name?.message || 'Error!'}</p>}
             </div>
-            <div className={styles.numbers}>
+            <div className='phones'>
                 <label>List of phone numbers:</label>
                 {fields.map((field, index) => {
                     return (
@@ -73,7 +72,7 @@ const ContactForm = ({handleAddContact}: Props) => {
                                     Remove
                                 </button>
                             )}
-                            {errors?.phoneNumbers?.[index] && <p className={styles.error} >{errors?.phoneNumbers?.[index]?.number?.message || 'Error!'}</p>}
+                            {errors?.phoneNumbers?.[index] && <p className='error' >{errors?.phoneNumbers?.[index]?.number?.message || 'Error!'}</p>}
                         </div>
                     )
                 })}
@@ -81,9 +80,9 @@ const ContactForm = ({handleAddContact}: Props) => {
                     Add one more number
                 </button>
             </div>
-            <div className={styles.field} >
-                <label htmlFor="email" className={styles.label} >Email:</label>
-                <input id="email" className={styles.input} {...register('email', {
+            <div className='field' >
+                <label htmlFor="email">Email:</label>
+                <input id="email" className='input' {...register('email', {
                     required: 'Email is rerequired',
                     maxLength: {
                         value: 49,
@@ -94,10 +93,10 @@ const ContactForm = ({handleAddContact}: Props) => {
                         message: 'Enter a valid email address'
                     }
                 })} />           
-                {errors?.email && <p className={styles.error} >{errors?.email?.message || 'Error!'}</p>}
+                {errors?.email && <p className='error' >{errors?.email?.message || 'Error!'}</p>}
             </div>
-            <div className={styles.field} >
-                <label className={styles.label}>Gender:</label>
+            <div className='field' >
+                <label>Gender:</label>
                 <label>
                     <input
                         type="radio"
@@ -112,9 +111,9 @@ const ContactForm = ({handleAddContact}: Props) => {
                         {...register('gender', { required: 'Gender is required' })}
                     /> Female
                 </label>
-                {errors?.gender && <p className={styles.error} >{errors?.gender?.message || 'Error!'}</p>}
+                {errors?.gender && <p className='error' >{errors?.gender?.message || 'Error!'}</p>}
             </div>
-            <input type="submit" className={styles.btn} value="Add to contacts" disabled={!isValid || isSubmitting} />
+            <input type="submit" className='button' value="Add to contacts" disabled={!isValid || isSubmitting} />
         </form>
     )
 }

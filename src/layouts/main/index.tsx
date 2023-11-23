@@ -1,16 +1,15 @@
 import { ReactNode } from 'react'
 import Footer from '../../components/sections/footer'
 import Header from '../../components/sections/header'
-import styles from './Layout.module.scss'
 
 type Props = {
   children?: ReactNode
 }
 
 export const MainLayout = ({ children }: Props) => (
-  <div className="wrapper overflow">
+  <div className="wrapper">
     <Header />
-    <main className={styles.container} >
+    <main style={{paddingInline: '20px'}} >
       {children}
     </main>
     <Footer />

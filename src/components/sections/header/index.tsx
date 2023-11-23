@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import styles from './Header.module.scss'
 import { useRouter } from 'next/router';
 import { PATHS } from '../../../utils';
 
@@ -9,7 +8,8 @@ type NavItem = {
 };
 
 const Header = () => {
-    const router = useRouter();    
+    const router = useRouter();  
+    console.log('sfsdf');
     
     const navItems: NavItem[] = [
         { path: PATHS.root, text: 'Home' },
@@ -18,10 +18,10 @@ const Header = () => {
     ];
 
     return (
-        <header className={styles.header} >
-            <nav className={styles.nav} >
+        <header className='header' >
+            <nav>
                 {navItems.map(({ path, text }) => (
-                    <Link key={path} href={path} className={`${styles.link} ${router.pathname === path ? styles.current : ''}`} >{text}</Link>
+                    <Link key={path} href={path} className={`${router.pathname === path ? 'current' : ''}`} >{text}</Link>
                 ))}
             </nav>
         </header>
