@@ -9,7 +9,6 @@ type NavItem = {
 
 const Header = () => {
     const router = useRouter();  
-    console.log('sfsdf');
     
     const navItems: NavItem[] = [
         { path: PATHS.root, text: 'Home' },

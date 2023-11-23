@@ -1,18 +1,19 @@
+import { useToDos } from '../../../hooks/useToDos';
 import { ITodo } from '../../../utils'
 import ToDoItem from '../../cards/toDoItem'
 
-type Props = {
-  items: ITodo[]
-}
-
-const ToDoList = ({ items }: Props) => (
-  <ul className='todo-list' >
-    {items.map((item) => (
+const ToDoList = () => {
+  const todos: ITodo[] = useToDos();
+  
+  return (
+    <ul className='todo-list' >
+      {todos && todos.map((item) => (
         <li key={item.id}>
-            <ToDoItem data={item} />
-      </li>
-    ))}
-  </ul>
-)
+          <ToDoItem data={item} />
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export default ToDoList

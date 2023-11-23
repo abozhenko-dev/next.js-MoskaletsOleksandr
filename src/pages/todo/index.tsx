@@ -1,17 +1,12 @@
 import Link from "next/link";
 import ToDoDetail from "../../components/cards/toDoDetails";
-import { ITodo } from "../../utils";
 
-type Props = {
-  todo: ITodo
-};
-
-const ToDo  = ({ todo }: Props) => (
+const ToDo  = () => (
   <section>
     <Link href="/todos">
       Back to Todos
     </Link>
-    <ToDoDetail todo={todo} />
+    <ToDoDetail/>
   </section>
 );
 

@@ -14,7 +14,8 @@ const Contacts = () => {
             phoneNumbers: [
                 { number: '24568439874' },
                 { number: '65164516355' },
-            ]
+            ],
+            dob: new Date()
         }
     ]);
   

@@ -11,4 +11,5 @@ export interface IContact {
   phoneNumbers: {
     number: string
   }[];
+  dob: Date
 }

@@ -1,25 +1,30 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { Gender, IContact} from "../../../utils";
 import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
 
 type Props = {
     handleAddContact: (newContact: IContact) => void;
 }
 
-const ContactForm = ({handleAddContact}: Props) => {
+let renderCount = 0;
+const ContactForm = ({ handleAddContact }: Props) => {
+    const [isNumBtnDisabled, setIsNumBtnDisabled] = useState(true);
     const {
         register,
         control,
         handleSubmit,
         formState: { errors, isValid, isSubmitting },
-        reset
+        reset,
+        watch
     } = useForm({
         mode: 'onBlur',
         defaultValues: {
             name: '',
             email: '',
             gender: null,
-            phoneNumbers: [{number: ''}],
+            phoneNumbers: [{ number: '' }],
+            dob: new Date()
         }
     });
 
@@ -29,13 +34,25 @@ const ContactForm = ({handleAddContact}: Props) => {
     });
 
     const onSubmit: SubmitHandler<IContact> = (data) => {
-        const contactWithId = { ...data, id: nanoid() };        
+        const contactWithId = { ...data, id: nanoid() };
         handleAddContact(contactWithId)
         reset();
-    }
+    };
+
+    useEffect(() => {
+        const subscription = watch((value) => {
+            const numbers = value.phoneNumbers;
+            setIsNumBtnDisabled(!numbers[numbers.length - 1].number);
+        });
+        return () => subscription.unsubscribe();
+    }, [watch]);
+    
+    console.log('test renderCount');
+    renderCount++;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='contact-form' >
+            <p>renderCount {renderCount}</p>
             <div className='field' >
                 <label htmlFor="name">Name:</label>
                 <input id="name" className='input' {...register('name', {
@@ -76,7 +93,9 @@ const ContactForm = ({handleAddContact}: Props) => {
                         </div>
                     )
                 })}
-                <button type="button" onClick={() => append({ number: '' })} >
+                <button type="button" onClick={() => append({ number: '' })}
+                    disabled={isNumBtnDisabled}
+                >
                     Add one more number
                 </button>
             </div>
@@ -94,6 +113,14 @@ const ContactForm = ({handleAddContact}: Props) => {
                     }
                 })} />           
                 {errors?.email && <p className='error' >{errors?.email?.message || 'Error!'}</p>}
+            </div>
+            <div className='field' >
+                <label htmlFor="dob">Date of birth:</label>
+                <input type='date' id="dob" className='input' {...register('dob', {
+                    valueAsDate: true,
+                    required: 'Date of birth is rerequired',
+                })} />           
+                {errors?.dob && <p className='error' >{errors?.dob?.message || 'Error!'}</p>}
             </div>
             <div className='field' >
                 <label>Gender:</label>
