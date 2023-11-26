@@ -1,9 +1,11 @@
-import Title from "../../components/ui/title"
+import { Title } from "@components/index";
+import { FC } from "react";
 
-const Home = () => (
+export const Home: FC = () => {
+  return (
     <section>
       <Title title='Home page' />
     </section>
-)
+  );
+};
 
-export default Home

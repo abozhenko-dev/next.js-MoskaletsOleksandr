@@ -71,6 +71,15 @@ section {
 
 // <СТИЛИ>===================================================================
 
+// Components - Form
+@import './components/form/button.scss';
+@import './components/form/error.scss';
+@import './components/form/form.scss';
+@import './components/form/input.scss';
+@import './components/form/inputs-array.scss';
+@import './components/form/radio.scss';
+// Components - Form
+
 // Components - UI
 @import './components/ui/container/index.scss';
 @import './components/ui/title/index.scss';
@@ -85,15 +94,11 @@ section {
 // Components - Modals
 
 // Components - Sections
-@import './components/sections/contactForm/index.scss';
-@import './components/sections/contactList/index.scss';
 @import './components/sections/footer/index.scss';
 @import './components/sections/header/index.scss';
-@import './components/sections/toDoList/index.scss';
 // Components - Sections
 
 // Components - Cards
-@import './components/cards/toDoDetails/index.scss';
 @import './components/cards/toDoItem/index.scss';
 @import './components/cards/contact/index.scss';
 // Components - Cards

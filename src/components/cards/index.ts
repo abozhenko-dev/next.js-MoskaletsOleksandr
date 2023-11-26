@@ -1,3 +1,2 @@
-export * from './toDoDetails';
-export * from './toDoItem';
+export * from './todo-item';
 export * from './contact';

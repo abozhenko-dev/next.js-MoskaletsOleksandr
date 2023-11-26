@@ -1,13 +1,14 @@
-import Link from 'next/link'
+import { PATHS } from '@utils/index';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { PATHS } from '../../../utils';
+import { FC } from 'react';
 
 type NavItem = {
   path: string;
   text: string;
 };
 
-const Header = () => {
+export const Header: FC = () => {
     const router = useRouter();  
     
     const navItems: NavItem[] = [
@@ -26,5 +27,3 @@ const Header = () => {
         </header>
     );
 };
-
-export default Header;

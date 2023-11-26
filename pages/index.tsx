@@ -1,15 +1,17 @@
+import { Meta } from '@components/index';
+import { MainLayout } from '@layouts/index';
+import { Home } from '@pages/index';
+import { NextPageWithLayout } from '@utils/index';
 import { ReactElement } from 'react';
-import { Meta } from '../src/components/utils';
-import { MainLayout } from '../src/layouts'
-import Home from '../src/pages/home';
-import { NextPageWithLayout } from '../src/utils'
 
-const Page: NextPageWithLayout = () => (
-  <>
-    <Meta meta={{title: 'Home | Next.js'}} />
-    <Home />
-  </>
-)
+const Page: NextPageWithLayout = () => {
+  return (
+    <>
+      <Meta meta={{ title: 'Home | Next.js' }} />
+      <Home />
+    </>
+  );
+};
 
 Page.getLayout = (page: ReactElement) => (
   <MainLayout>
@@ -17,4 +19,4 @@ Page.getLayout = (page: ReactElement) => (
   </MainLayout>
 );
 
-export default Page
+export default Page;

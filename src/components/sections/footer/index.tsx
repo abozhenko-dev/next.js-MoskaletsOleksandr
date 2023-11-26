@@ -1,7 +1,9 @@
-const Footer = () => (
+import { FC } from "react";
+
+export const Footer: FC = () => {
+  return (
     <footer className='footer' >
       <p>Some footer</p>
     </footer>
-)
-
-export default Footer;
+  );
+};

@@ -1,13 +1,25 @@
+import { useToDo } from "@hooks/index";
+import { ITodo } from "@utils/index";
 import Link from "next/link";
-import ToDoDetail from "../../components/cards/toDoDetails";
+import { useRouter } from "next/router";
+import { FC } from "react";
 
-const ToDo  = () => (
-  <section>
-    <Link href="/todos">
-      Back to Todos
-    </Link>
-    <ToDoDetail/>
-  </section>
-);
+export const ToDo: FC = () => {
+  const router = useRouter();
 
-export default ToDo;
+  const { id } = router.query;
+  const todo: ITodo = useToDo(id as string);
+
+  return (
+    <section>
+      <Link href="/todos">
+        Back to Todos
+      </Link>
+      <div className='todo-details' >
+        <p>ID: {todo?.id}</p>
+        <p>Done: {todo?.completed ? "Yes" : "No"}</p>
+        <h2>{todo?.title}</h2>
+      </div>
+    </section>
+  );
+};

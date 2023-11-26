@@ -3,13 +3,15 @@ export enum Gender {
   Female = 'female',
 }
 
+interface IPhoneNumber {
+  number: string;
+}
+
 export interface IContact {
   id: string;
   name: string;
   email: string;
-  gender: 'male' | 'female';
-  phoneNumbers: {
-    number: string
-  }[];
+  gender: Gender | null;
+  phoneNumbers: IPhoneNumber[];
   dob: Date
 }

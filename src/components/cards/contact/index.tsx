@@ -1,19 +1,22 @@
-import { FC } from "react"
-import { IContact } from "../../../utils"
+import { IContact } from "@utils/index";
+import { FC } from "react";
 
 type Props = {
     contact: IContact
 };
 
-export const Contact: FC<Props> = ({ contact }) => {
+export const ContactCard: FC<Props> = ({ contact }) => {
+    const { gender, name, email, phoneNumbers, dob } = contact;
+
     return (
         <div className="container">
             <p>
-                <strong style={{ color: `${contact.gender === 'male' ? 'var(--clr-default-600)' : 'var(--clr-default-400)'}` }}>
-                    {contact.name} {contact.gender === 'male' ? '(he)' : '(she)'}
-                </strong> - {contact.email}
+                <strong style={{ color: `${gender === 'male' ? 'var(--clr-default-600)' : 'var(--clr-default-400)'}` }}>
+                    {name} {gender === 'male' ? '(he)' : '(she)'}
+                </strong> - {email}
             </p>
-            <p>Phones: {contact.phoneNumbers.map((num) => num.number).join('; ')}</p>
+            <p>Date of birth: {dob.toISOString().split('T')[0]}</p>
+            <p>Phones: {phoneNumbers.map((num) => num.number).join('; ')}</p>
         </div>
     );
 };

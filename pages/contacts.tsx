@@ -1,15 +1,17 @@
+import { Meta } from '@components/index';
+import { MainLayout } from '@layouts/index';
+import { Contacts } from '@pages/index';
+import { NextPageWithLayout } from '@utils/index';
 import { ReactElement } from 'react';
-import {MainLayout} from '../src/layouts'
-import { NextPageWithLayout } from '../src/utils';
-import Contacts from '../src/pages/contacts';
-import { Meta } from '../src/components/utils';
 
-const Page: NextPageWithLayout = () => (
-  <>
-    <Meta meta={{ title: 'Contacts | Next.js' }} />
-    <Contacts />
-  </>
-);
+const Page: NextPageWithLayout = () => {
+  return (
+    <>
+      <Meta meta={{ title: 'Contacts | Next.js' }} />
+      <Contacts />
+    </>
+  );
+};
 
 Page.getLayout = (page: ReactElement) => (
   <MainLayout>
@@ -17,4 +19,4 @@ Page.getLayout = (page: ReactElement) => (
   </MainLayout>
 );
 
-export default Page
+export default Page;

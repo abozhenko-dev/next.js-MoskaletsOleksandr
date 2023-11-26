@@ -1,22 +1,18 @@
-import {MainLayout} from '../../src/layouts'
-import { NextPageWithLayout } from '../../src/utils'
 import { ReactElement } from 'react'
-import ToDos from '../../src/pages/todos';
 import { GetServerSideProps } from 'next';
-import { ToDoService } from '../../src/services/todo.service';
-import { Meta } from '../../src/components/utils';
 import { SWRConfig } from 'swr';
+import { DefaultPageProps, NextPageWithLayout } from '@utils/index';
+import { Meta } from '@components/index';
+import { ToDos } from '@pages/index';
+import { MainLayout } from '@layouts/index';
+import { ToDoService } from '@services/index';
 
-type Props = {
-  fallback: any
-}
-
-const Page: NextPageWithLayout<Props> = (props) => {
-  const { fallback } = props;
+const Page: NextPageWithLayout<DefaultPageProps> = (props) => {
+  const { fallback, meta } = props;
   
   return (
     <SWRConfig value={{fallback}}>
-      <Meta meta={{ title: 'ToDos | Next.js' }} />
+      <Meta meta={meta} />
       <ToDos/>
     </SWRConfig>
   );
@@ -35,8 +31,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
+      meta: {
+        title: `Todos | Next.js`
+      },
       fallback: {
-        '/todos': data.slice(0, 3)
+        '/todos': data
       }
     }
   };
