@@ -1,10 +1,12 @@
-import { Footer, Header } from '@components/index';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode } from "react";
+
 import { SWRConfig } from "swr";
 
+import { Footer, Header } from "@components";
+
 type Props = {
-  children?: ReactNode
-  fallback?: any
+  children?: ReactNode;
+  fallback?: any;
 };
 
 export const MainLayout: FC<Props> = (props) => {
@@ -14,9 +16,7 @@ export const MainLayout: FC<Props> = (props) => {
     <SWRConfig value={{ fallback }}>
       <div className="wrapper">
         <Header />
-        <main style={{ paddingInline: '2rem' }} >
-          {children}
-        </main>
+        <main style={{ paddingInline: "2rem" }}>{children}</main>
         <Footer />
       </div>
     </SWRConfig>

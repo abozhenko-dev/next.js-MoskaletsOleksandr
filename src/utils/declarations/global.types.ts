@@ -1,5 +1,7 @@
-import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+
+import { NextPage } from "next";
+
 import { IMetadata } from "./metadata";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

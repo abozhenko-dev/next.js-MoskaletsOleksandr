@@ -18,53 +18,53 @@
 $containerWidth: 120rem;
 
 :root {
-    // base
-    --font-family: "Poppins", sans-serif;
-    --font-weight: 400;
-    --content-width: 117rem;
-    --container-offset: 1.5rem;
-    --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
-    --transition: 0.3s;
+  // base
+  --font-family: "Poppins", sans-serif;
+  --font-weight: 400;
+  --content-width: 117rem;
+  --container-offset: 1.5rem;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+  --transition: 0.3s;
 
-    // General
-    --clr-default-100: #fff;
-    --clr-default-200: #f3f3d9;
-    --clr-default-400: #c700ac;
-    --clr-default-600: #022596;
-    --clr-default-900: #111;
+  // General
+  --clr-default-100: #fff;
+  --clr-default-200: #f3f3d9;
+  --clr-default-400: #c700ac;
+  --clr-default-600: #022596;
+  --clr-default-900: #111;
 
-    // Primary
-    --clr-primary-400: #00a732;
-    --clr-primary-600: rgb(173, 2, 2);
+  // Primary
+  --clr-primary-400: #00a732;
+  --clr-primary-600: rgb(173, 2, 2);
 
-    --clr-error: rgb(192, 19, 19);
+  --clr-error: rgb(192, 19, 19);
 }
 
 // </ПЕРЕМЕННЫЕ>==============================================================
 
 // <ОБОЛОЧКИ>================================================================
 body {
-    font-size: 1.4rem;
-    color: var(--clr-default-900);
-    background-color: var(--clr-default-100);
+  font-size: 1.4rem;
+  color: var(--clr-default-900);
+  background-color: var(--clr-default-100);
 }
 
 main {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-width: 32rem;
-    min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 32rem;
+  min-height: 100%;
 }
 
 section {
-    padding-block: 15px;
+  padding-block: 15px;
 }
 
 // </ОБОЛОЧКИ>===============================================================
@@ -72,42 +72,42 @@ section {
 // <СТИЛИ>===================================================================
 
 // Components - Form
-@import './components/form/button.scss';
-@import './components/form/error.scss';
-@import './components/form/form.scss';
-@import './components/form/input.scss';
-@import './components/form/inputs-array.scss';
-@import './components/form/radio.scss';
+@import "./components/form/button.scss";
+@import "./components/form/error.scss";
+@import "./components/form/form.scss";
+@import "./components/form/input.scss";
+@import "./components/form/inputs-array.scss";
+@import "./components/form/radio.scss";
 // Components - Form
 
 // Components - UI
-@import './components/ui/container/index.scss';
-@import './components/ui/title/index.scss';
+@import "./components/ui/container/index.scss";
+@import "./components/ui/title/index.scss";
 // Components - UI
 
 // Components - Common
-@import './components/common/modal/index.scss';
+@import "./components/common/modal/index.scss";
 // Components - Common
 
 // Components - Modals
-@import './components/common/modal/index.scss';
+@import "./components/common/modal/index.scss";
 // Components - Modals
 
 // Components - Sections
-@import './components/sections/footer/index.scss';
-@import './components/sections/header/index.scss';
+@import "./components/sections/footer/index.scss";
+@import "./components/sections/header/index.scss";
 // Components - Sections
 
 // Components - Cards
-@import './components/cards/toDoItem/index.scss';
-@import './components/cards/contact/index.scss';
+@import "./components/cards/todo-item/index.scss";
+@import "./components/cards/contact/index.scss";
 // Components - Cards
 
 // Components - Pages
-@import './components/pages/contacts/index.scss';
-@import './components/pages/home/index.scss';
-@import './components/pages/todo/index.scss';
-@import './components/pages/todos/index.scss';
+@import "./components/pages/contacts/index.scss";
+@import "./components/pages/home/index.scss";
+@import "./components/pages/todo/index.scss";
+@import "./components/pages/todos/index.scss";
 // Components - Pages
 
 // <СТИЛИ>===================================================================

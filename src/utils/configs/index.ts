@@ -1,1 +1,1 @@
-export * from './paths.config';
+export * from "./paths.config";

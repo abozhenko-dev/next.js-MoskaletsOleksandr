@@ -1,30 +1,32 @@
-import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
+
+import { GetServerSideProps } from "next";
+
 import { SWRConfig } from "swr";
-import { DefaultPageProps, NextPageWithLayout } from "@utils/index";
-import { Meta } from "@components/index";
-import { ToDo } from "@pages/index";
-import { MainLayout } from "@layouts/index";
-import { ToDoService } from "@services/index";
+
+import { MainLayout } from "@layouts";
+
+import { ToDo } from "@pages";
+
+import { Meta } from "@components";
+
+import { ToDoService } from "@services";
+
+import { DefaultPageProps, NextPageWithLayout } from "@utils";
 
 const Page: NextPageWithLayout<DefaultPageProps> = (props) => {
   const { fallback, meta } = props;
 
   return (
-    <SWRConfig value={{fallback}} >
+    <SWRConfig value={{ fallback }}>
       <Meta meta={meta} />
-      <ToDo/>
+      <ToDo />
     </SWRConfig>
-  )
+  );
 };
 
-
 Page.getLayout = (page: ReactElement) => (
-  <MainLayout
-    fallback={page?.props?.fallback}
-  >
-    {page}
-  </MainLayout>
+  <MainLayout fallback={page?.props?.fallback}>{page}</MainLayout>
 );
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -37,10 +39,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         title: `Todo #${id}  | Next.js`
       },
       fallback: {
-        ['/todos/' + id]: data
+        ["/todos/" + id]: data
       }
     }
   };
-}
+};
 
 export default Page;

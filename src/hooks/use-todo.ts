@@ -1,7 +1,7 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 
 export const useToDo = (slug: string) => {
-    const { data } = useSWR('/todos/' + slug);    
-    
-    return data;
+  const { data } = useSWR("/todos/" + slug);
+
+  return data;
 };
