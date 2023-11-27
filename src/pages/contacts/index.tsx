@@ -6,6 +6,8 @@ import { fakeContacts } from "src/data/fakeData";
 
 import { ContactCard, Title } from "@components";
 
+import { useTranslation } from "@hooks";
+
 import { Gender, IContact } from "@utils";
 
 interface FormData {
@@ -18,6 +20,7 @@ interface FormData {
 
 export const Contacts = () => {
   const [contacts, setContacts] = useState<IContact[]>(fakeContacts);
+  const t = useTranslation();
 
   const {
     register,
@@ -52,57 +55,59 @@ export const Contacts = () => {
 
   return (
     <section className="contacts">
-      <Title title="Contacts" />
+      <Title title={t.title.contacts} />
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
           <div className="field">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">{t.form.label.name}:</label>
             <input
               id="name"
               className="input"
               {...register("name", {
-                required: "Name is rerequired",
+                required: t.enums.error.nameIsRequired,
                 maxLength: {
-                  value: 49,
-                  message: "Enter no more than 49 letters"
+                  value: 39,
+                  message: t.enums.error.maxLength
                 },
                 pattern: {
                   value: /^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ\s]+$/,
-                  message: "Enter only letters"
+                  message: t.enums.error.namePattern
                 }
               })}
             />
             {errors?.name && (
-              <p className="error">{errors?.name?.message || "Error!"}</p>
+              <p className="error">
+                {errors?.name?.message || t.enums.error.inputError}
+              </p>
             )}
           </div>
           <div className="phones">
-            <label>List of phone numbers:</label>
+            <label>{t.form.label.phoneNumbersList}:</label>
             {fields.map((field, index) => {
               return (
                 <div key={field.id}>
                   <input
                     {...register(`phoneNumbers.${index}.number` as const, {
-                      required: "Phone number is rerequired",
+                      required: t.enums.error.phoneIsRequired,
                       pattern: {
                         value: /^[0-9]*[-\s]?[0-9]*$/,
-                        message: "Enter only numbers, spaces or dashes"
+                        message: t.enums.error.phonePattern
                       },
                       maxLength: {
-                        value: 19,
-                        message: "Enter no more than 19 symbols"
+                        value: 39,
+                        message: t.enums.error.maxLength
                       }
                     })}
                   />
                   {index > 0 && (
                     <button type="button" onClick={() => remove(index)}>
-                      Remove
+                      {t.action.remove}
                     </button>
                   )}
                   {errors?.phoneNumbers?.[index] && (
                     <p className="error">
                       {errors?.phoneNumbers?.[index]?.number?.message ||
-                        "Error!"}
+                        t.enums.error.inputError}
                     </p>
                   )}
                 </div>
@@ -115,71 +120,81 @@ export const Contacts = () => {
                 watchPhoneNumbers[watchPhoneNumbers.length - 1].number === ""
               }
             >
-              Add one more number
+              {t.action.addOneMoreNumber}
             </button>
           </div>
           <div className="field">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">{t.form.label.email}:</label>
             <input
               id="email"
               className="input"
               {...register("email", {
-                required: "Email is rerequired",
+                required: t.enums.error.emailIsRequired,
                 maxLength: {
-                  value: 49,
-                  message: "Enter no more than 49 letters"
+                  value: 39,
+                  message: t.enums.error.maxLength
                 },
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Enter a valid email address"
+                  message: t.enums.error.emailPattern
                 }
               })}
             />
             {errors?.email && (
-              <p className="error">{errors?.email?.message || "Error!"}</p>
+              <p className="error">
+                {errors?.email?.message || t.enums.error.inputError}
+              </p>
             )}
           </div>
-          <div className="field-dob">
-            <label htmlFor="dob">Date of birth:</label>
+          <div className="field field--dob">
+            <label htmlFor="dob">{t.form.label.dot}:</label>
             <input
               type="date"
               id="dob"
               className="input"
               {...register("dob", {
                 valueAsDate: true,
-                required: "Date of birth is rerequired"
+                required: t.enums.error.dobIsRequired
               })}
             />
             {errors?.dob && (
-              <p className="error">{errors?.dob?.message || "Error!"}</p>
+              <p className="error">
+                {errors?.dob?.message || t.enums.error.inputError}
+              </p>
             )}
           </div>
           <div className="field">
-            <label>Gender:</label>
+            <label>{t.form.label.gender}:</label>
             <label>
               <input
                 type="radio"
                 value={Gender.Male}
-                {...register("gender", { required: "Gender is required" })}
-              />{" "}
-              Male
+                {...register("gender", {
+                  required: t.enums.error.genderIsRequired
+                })}
+              />
+              {t.enums.gender.male}
             </label>
             <label>
               <input
                 type="radio"
                 value={Gender.Female}
-                {...register("gender", { required: "Gender is required" })}
-              />{" "}
-              Female
+                {...register("gender", {
+                  required: t.enums.error.genderIsRequired
+                })}
+              />
+              {t.enums.gender.female}
             </label>
             {errors?.gender && (
-              <p className="error">{errors?.gender?.message || "Error!"}</p>
+              <p className="error">
+                {errors?.gender?.message || t.enums.error.inputError}
+              </p>
             )}
           </div>
           <input
             type="submit"
             className="button"
-            value="Add to contacts"
+            value={t.action.addToContacts}
             disabled={!isValid || isSubmitting}
           />
         </form>

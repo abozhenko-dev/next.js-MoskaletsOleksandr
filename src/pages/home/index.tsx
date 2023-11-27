@@ -2,10 +2,14 @@ import { FC } from "react";
 
 import { Title } from "@components";
 
+import { useTranslation } from "@hooks";
+
 export const Home: FC = () => {
+  const t = useTranslation();
+
   return (
     <section>
-      <Title title="Home page" />
+      <Title title={t.title.homePage} />
     </section>
   );
 };

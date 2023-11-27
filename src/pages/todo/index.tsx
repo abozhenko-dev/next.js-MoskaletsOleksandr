@@ -3,22 +3,28 @@ import { FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useToDo } from "@hooks";
+import { useToDo, useTranslation } from "@hooks";
 
 import { ITodo } from "@utils";
 
 export const ToDo: FC = () => {
   const router = useRouter();
+  const t = useTranslation();
 
   const { id } = router.query;
   const todo: ITodo = useToDo(id as string);
 
   return (
     <section>
-      <Link href="/todos">Back to Todos</Link>
+      <Link href="/todos">{t.action.backToTodos}</Link>
       <div className="todo-details">
-        <p>ID: {todo?.id}</p>
-        <p>Done: {todo?.completed ? "Yes" : "No"}</p>
+        <p>
+          {t.common.id}: {todo?.id}
+        </p>
+        <p>
+          {t.common.done}:{" "}
+          {todo?.completed ? t.enums.doneStatus.yes : t.enums.doneStatus.no}
+        </p>
         <h2>{todo?.title}</h2>
       </div>
     </section>

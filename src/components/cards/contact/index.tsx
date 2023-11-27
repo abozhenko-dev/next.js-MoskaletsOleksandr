@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { useTranslation } from "@hooks";
+
 import { IContact } from "@utils";
 
 type Props = {
@@ -8,6 +10,7 @@ type Props = {
 
 export const ContactCard: FC<Props> = ({ contact }) => {
   const { gender, name, email, phoneNumbers, dob } = contact;
+  const t = useTranslation();
 
   return (
     <div className="container">
@@ -21,12 +24,19 @@ export const ContactCard: FC<Props> = ({ contact }) => {
             }`
           }}
         >
-          {name} {gender === "male" ? "(he)" : "(she)"}
+          {name}{" "}
+          {gender === "male"
+            ? `(${t.enums.sex.male})`
+            : `(${t.enums.sex.female})`}
         </strong>{" "}
         - {email}
       </p>
-      <p>Date of birth: {dob.toISOString().split("T")[0]}</p>
-      <p>Phones: {phoneNumbers.map((num) => num.number).join("; ")}</p>
+      <p>
+        {t.common.dob}: {dob.toISOString().split("T")[0]}
+      </p>
+      <p>
+        {t.common.phones}: {phoneNumbers.map((num) => num.number).join("; ")}
+      </p>
     </div>
   );
 };
