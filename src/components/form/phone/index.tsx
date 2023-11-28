@@ -1,18 +1,15 @@
-import {
-  ChangeEvent,
-  ElementType,
-  FC,
-  InputHTMLAttributes,
-  ReactNode
-} from "react";
+import { ElementType, FC } from "react";
 
 import { Controller, useFormContext } from "react-hook-form";
+import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
 
 import { useTranslation } from "@hooks";
 
 import { ErrorMessagesEnum } from "@utils";
 
-interface InputProps {
+import "react-phone-input-2/lib/style.css";
+
+interface PhoneProps {
   name: string;
   value: string;
   onChange: (value: string) => void;
@@ -20,19 +17,14 @@ interface InputProps {
   error?: boolean;
   helperText?: string;
   labelText?: string;
-  InputAdorment?: {
-    start?: ReactNode;
-    end?: ReactNode;
-  };
-  InputProps?: InputHTMLAttributes<HTMLInputElement>;
+  PhoneInputProps?: PhoneInputProps;
 }
 
-export const Input: FC<Omit<InputProps, "name">> = (props) => {
+export const Phone: FC<Omit<PhoneProps, "name">> = (props: PhoneProps) => {
   const {
+    PhoneInputProps,
     onChange,
     value,
-    InputAdorment,
-    InputProps,
     error,
     helperText,
     labelText,
@@ -40,7 +32,7 @@ export const Input: FC<Omit<InputProps, "name">> = (props) => {
   } = props;
 
   // const getClasses = () => {
-  //   let classes = "input";
+  //   let classes = "phone";
 
   //   if (error) {
   //     classes += " error";
@@ -49,36 +41,28 @@ export const Input: FC<Omit<InputProps, "name">> = (props) => {
   //   return classes;
   // };
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
   return (
     // <Tag className={getClasses()}>
     <Tag className="field">
       <label>
         {labelText && labelText}
-        <div className="input-base">
-          {InputAdorment?.start && (
-            <div className="input-adorment start">{InputAdorment?.start}</div>
-          )}
-          <input
-            {...InputProps}
-            type={InputProps?.type || "text"}
-            value={value}
-            onInput={handleInput}
-          />
-          {InputAdorment?.end && (
-            <div className="input-adorment end">{InputAdorment?.end}</div>
-          )}
-        </div>
+        <PhoneInput
+          value={value}
+          onChange={onChange}
+          country="us"
+          countryCodeEditable={false}
+          onlyCountries={["ua", "us"]}
+          specialLabel=""
+          inputProps={{ type: "text", inputMode: "numeric" }}
+          {...PhoneInputProps}
+        />
         {helperText && <p className="error">{helperText}</p>}
       </label>
     </Tag>
   );
 };
 
-export const ControlledInput: FC<Omit<InputProps, "value" | "onChange">> = (
+export const ControlledPhone: FC<Omit<PhoneProps, "value" | "onChange">> = (
   props
 ) => {
   const { name, ...rest } = props;
@@ -91,7 +75,7 @@ export const ControlledInput: FC<Omit<InputProps, "value" | "onChange">> = (
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Input
+        <Phone
           value={field.value || ""}
           onChange={field.onChange}
           error={Boolean(fieldState.error)}

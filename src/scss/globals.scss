@@ -72,12 +72,11 @@ section {
 // <СТИЛИ>===================================================================
 
 // Components - Form
-@import "./components/form/button.scss";
-@import "./components/form/error.scss";
+@import "./components/form/textarea.scss";
 @import "./components/form/form.scss";
 @import "./components/form/input.scss";
-@import "./components/form/inputs-array.scss";
 @import "./components/form/radio.scss";
+@import "./components/form/phone.scss";
 // Components - Form
 
 // Components - UI

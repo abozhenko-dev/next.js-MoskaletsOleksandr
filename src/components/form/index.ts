@@ -1,6 +1,4 @@
-export * from "./button";
-export * from "./error";
-export * from "./form";
-export * from "./input";
-export * from "./inputs-array";
-export * from "./radio";
+export { Form } from "./form";
+export { Input } from "./input";
+export { Radio } from "./radio";
+export { Textarea } from "./textarea";

@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const ContactCard: FC<Props> = ({ contact }) => {
-  const { gender, name, email, phoneNumbers, dob } = contact;
+  const { gender, name, email, phoneNumber, message } = contact;
   const t = useTranslation();
 
   return (
@@ -32,10 +32,10 @@ export const ContactCard: FC<Props> = ({ contact }) => {
         - {email}
       </p>
       <p>
-        {t.common.dob}: {dob.toISOString().split("T")[0]}
+        {t.common.message}: {message}
       </p>
       <p>
-        {t.common.phones}: {phoneNumbers.map((num) => num.number).join("; ")}
+        {t.common.phone}: {phoneNumber}
       </p>
     </div>
   );

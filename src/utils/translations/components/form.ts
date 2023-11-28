@@ -5,7 +5,9 @@ export const form: Record<Locales, ITranslation["form"]> = {
     label: {
       name: "Name",
       phoneNumbersList: "List of phone numbers",
+      phoneNumber: "Phone number",
       email: "Email",
+      message: "Message",
       dot: "Date of birth",
       gender: "Gender"
     },
@@ -17,7 +19,9 @@ export const form: Record<Locales, ITranslation["form"]> = {
     label: {
       name: "Ім'я",
       phoneNumbersList: "Список номерів телефонів",
+      phoneNumber: "Номер телефону",
       email: "Пошта",
+      message: "Повідомлення",
       dot: "Дата народження",
       gender: "Стать"
     },
