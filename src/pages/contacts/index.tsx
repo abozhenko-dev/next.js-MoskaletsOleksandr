@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import { fakeContacts } from "src/data/fakeData";
 
-import { ContactCard, Form, Title } from "@components";
+import { ContactCard, Form, TestModal, Title } from "@components";
 
 import { useTranslation } from "@hooks";
 
@@ -22,6 +22,7 @@ interface IFormData {
 
 export const Contacts = () => {
   const [contacts, setContacts] = useState<IContact[]>(fakeContacts);
+  const [isTestModalOpen, setIsTestModalOpen] = useState<boolean>(false);
   const t = useTranslation();
   const methods = useForm({ resolver: classValidatorResolver(ContactAddBody) });
 
@@ -39,9 +40,20 @@ export const Contacts = () => {
     methods.reset();
   };
 
+  const toogleTestModal = () => {
+    setIsTestModalOpen((prev) => !prev);
+  };
+
   return (
     <section className="contacts">
       <Title title={t.title.contacts} />
+      <button
+        onClick={() => {
+          toogleTestModal();
+        }}
+      >
+        Open test modal
+      </button>
       <div>
         <Form
           methods={methods}
@@ -76,6 +88,7 @@ export const Contacts = () => {
           </ul>
         </div>
       </div>
+      <TestModal onClose={toogleTestModal} isVisible={isTestModalOpen} />
     </section>
   );
 };
