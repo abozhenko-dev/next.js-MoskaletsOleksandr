@@ -12,3 +12,8 @@ export interface DefaultPageProps {
   fallback?: Record<string, any>;
   meta?: IMetadata;
 }
+
+export interface SelectOption {
+  label: string;
+  value: string | number;
+}

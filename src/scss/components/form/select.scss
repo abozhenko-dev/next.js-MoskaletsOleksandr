@@ -1,0 +1,89 @@
+.select {
+  position: absolute;
+  left: 1rem;
+  top: 0.2rem;
+  width: 6rem;
+  cursor: pointer;
+
+  &-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.8rem;
+    min-height: 5.2rem;
+    font-size: 1.8rem;
+    background-color: var(--clr-default-100);
+    transition: border-color var(--transition);
+  }
+
+  &-value {
+    flex-grow: 1;
+
+    &.single {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-dropdown {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 1.2rem);
+    z-index: 5;
+    border-radius: var(--radius-x2);
+    width: 100%;
+    box-shadow: 0.1rem 0.1rem 3.5rem rgba(34, 34, 34, 0.05);
+    background-color: var(--clr-default-100);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(1rem);
+    transition:
+      opacity var(--transition),
+      transform var(--transition);
+    pointer-events: none;
+
+    &__scroll {
+      overflow: auto;
+      max-height: 30rem;
+    }
+  }
+
+  &-option {
+    overflow: hidden;
+    border-radius: var(--radius-x2);
+    padding: 1.2rem 1.6rem;
+    width: 100%;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: background-color var(--transition);
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-bottom: 0.8rem;
+    }
+
+    &.selected {
+      background-color: var(--clr-default-200);
+      pointer-events: none;
+    }
+  }
+
+  &.opened {
+    .select-wrapper {
+      border-color: var(--clr-primary-400);
+    }
+
+    .select-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .select-arrow {
+      transform: rotate(180deg);
+    }
+  }
+}
