@@ -84,11 +84,11 @@ address {
 }
 
 input {
-  // -webkit-appearance: none;
-  // appearance: none;
-  // border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
   border-radius: 0;
-  // background-color: transparent;
+  background-color: transparent;
 
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,

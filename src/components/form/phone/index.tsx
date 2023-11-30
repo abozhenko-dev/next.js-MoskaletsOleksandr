@@ -31,19 +31,18 @@ export const Phone: FC<Omit<PhoneProps, "name">> = (props: PhoneProps) => {
     tag: Tag = "div"
   } = props;
 
-  // const getClasses = () => {
-  //   let classes = "phone";
+  const getClasses = () => {
+    let classes = "phone";
 
-  //   if (error) {
-  //     classes += " error";
-  //   }
+    if (error) {
+      classes += " error";
+    }
 
-  //   return classes;
-  // };
+    return classes;
+  };
 
   return (
-    // <Tag className={getClasses()}>
-    <Tag className="field">
+    <Tag className={getClasses()}>
       <label>
         {labelText && labelText}
         <PhoneInput
@@ -55,6 +54,23 @@ export const Phone: FC<Omit<PhoneProps, "name">> = (props: PhoneProps) => {
           specialLabel=""
           inputProps={{ type: "text", inputMode: "numeric" }}
           {...PhoneInputProps}
+          containerStyle={{
+            boxShadow: " 3px 5px 5px rgb(160, 160, 160)",
+            borderRadius: "1rem"
+          }}
+          inputStyle={{
+            width: "100%",
+            backgroundColor: "var(--clr-default-200)",
+            fontSize: "1.6rem",
+            border: "none",
+            borderRadius: "1rem",
+            height: "4.4rem"
+          }}
+          buttonStyle={{
+            backgroundColor: "var(--clr-default-200)",
+            border: "0.5rem solid var(--clr-default-200)",
+            borderRadius: "1rem"
+          }}
         />
         {helperText && <p className="error">{helperText}</p>}
       </label>

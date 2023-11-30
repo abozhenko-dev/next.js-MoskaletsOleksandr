@@ -43,15 +43,15 @@ export const Textarea: FC<Omit<TextareaProps, "name">> = (props) => {
   // **Ref
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // const getClasses = () => {
-  //   let classes = "textarea";
+  const getClasses = () => {
+    let classes = "textarea";
 
-  //   if (error) {
-  //     classes += " error";
-  //   }
+    if (error) {
+      classes += " error";
+    }
 
-  //   return classes;
-  // };
+    return classes;
+  };
 
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
@@ -70,23 +70,24 @@ export const Textarea: FC<Omit<TextareaProps, "name">> = (props) => {
 
   return (
     <Tag
-      className="field"
-      // className={getClasses()}
+      className={getClasses()}
       style={{
         "--min-height": `${minHeight}rem`,
         "--max-height": `${maxHeight}rem`
       }}
     >
-      {labelText && labelText}
-      <div className="textarea-base">
-        <textarea
-          ref={textareaRef}
-          {...InputProps}
-          value={value}
-          onInput={handleInput}
-        />
-      </div>
-      {helperText && <p className="error">{helperText}</p>}
+      <label>
+        {labelText && labelText}
+        <div className="textarea-base">
+          <textarea
+            ref={textareaRef}
+            {...InputProps}
+            value={value}
+            onInput={handleInput}
+          />
+        </div>
+        {helperText && <p className="error">{helperText}</p>}
+      </label>
     </Tag>
   );
 };

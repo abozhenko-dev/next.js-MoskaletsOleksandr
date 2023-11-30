@@ -29,8 +29,10 @@ $containerWidth: 120rem;
   // General
   --clr-default-100: #fff;
   --clr-default-200: #f3f3d9;
+  --clr-default-300: #d6d6a5;
   --clr-default-400: #c700ac;
   --clr-default-600: #022596;
+  --clr-default-800: rgba(31, 31, 31, 0.473);
   --clr-default-900: #111;
 
   // Primary
@@ -73,7 +75,6 @@ section {
 
 // Components - Form
 @import "./components/form/textarea.scss";
-@import "./components/form/form.scss";
 @import "./components/form/input.scss";
 @import "./components/form/radio.scss";
 @import "./components/form/phone.scss";

@@ -73,9 +73,7 @@ export const Contacts = () => {
             labelText={t.form.label.gender}
             options={genderRadioOptions}
           />
-          <button className="button" value={t.action.addToContacts}>
-            {t.action.addToContacts}
-          </button>
+          <button className="button">{t.action.addToContacts}</button>
         </Form>
         <div className="contact-list">
           <h2>{t.title.contactList}</h2>

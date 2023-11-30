@@ -38,24 +38,24 @@ export const Input: FC<Omit<InputProps, "name">> = (props) => {
     labelText,
     tag: Tag = "div"
   } = props;
+  console.log();
 
-  // const getClasses = () => {
-  //   let classes = "input";
+  const getClasses = () => {
+    let classes = "input";
 
-  //   if (error) {
-  //     classes += " error";
-  //   }
+    if (error) {
+      classes += " error";
+    }
 
-  //   return classes;
-  // };
+    return classes;
+  };
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 
   return (
-    // <Tag className={getClasses()}>
-    <Tag className="field">
+    <Tag className={getClasses()}>
       <label>
         {labelText && labelText}
         <div className="input-base">
