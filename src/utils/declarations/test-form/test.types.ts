@@ -5,6 +5,6 @@ export interface ITestData {
   phoneNumber: string;
   city: string;
   state: string;
-  coutry: string;
+  country: string;
   message: string;
 }

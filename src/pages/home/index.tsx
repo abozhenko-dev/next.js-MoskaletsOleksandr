@@ -7,34 +7,29 @@ import { Form, Title } from "@components";
 
 import { useTranslation } from "@hooks";
 
-import { ITestData, TestFormBody } from "@utils";
+import { ITestData, TestFormBody, isFieldValid } from "@utils";
 
 export const Home: FC = () => {
-  const [formStep, setFormStep] = useState<number>(1);
+  const [formStep, setFormStep] = useState<number | null>(1);
 
   const t = useTranslation();
-  const methods = useForm({
+  const methods = useForm<ITestData>({
     resolver: classValidatorResolver(TestFormBody),
     mode: "onChange"
   });
+  const { formState, watch, handleSubmit, reset } = methods;
 
-  const allowToSecondStep = Boolean(
-    methods.formState.dirtyFields.firstName &&
-      !methods.formState.errors?.firstName &&
-      methods.formState.dirtyFields.lastName &&
-      !methods.formState.errors?.lastName &&
-      methods.formState.dirtyFields.email &&
-      !methods.formState.errors?.email &&
-      methods.formState.dirtyFields.phoneNumber &&
-      !methods.formState.errors?.phoneNumber
+  const isFirstStepValid: boolean = !(
+    isFieldValid("firstName", formState) &&
+    isFieldValid("lastName", formState) &&
+    isFieldValid("email", formState) &&
+    isFieldValid("phoneNumber", formState)
   );
-  const allowToThirdStep = Boolean(
-    methods.formState.dirtyFields.city &&
-      !methods.formState.errors?.city &&
-      methods.formState.dirtyFields.state &&
-      !methods.formState.errors?.state &&
-      methods.formState.dirtyFields.country &&
-      !methods.formState.errors?.country
+
+  const isSecondStepValid: boolean = !(
+    isFieldValid("city", formState) &&
+    isFieldValid("state", formState) &&
+    isFieldValid("country", formState)
   );
 
   const handlePrevStep: () => void = () => {
@@ -48,17 +43,16 @@ export const Home: FC = () => {
   const onSubmit = (data: ITestData): void => {
     window.alert(JSON.stringify(data, null, 2));
     setFormStep(1);
-    methods.reset();
+    reset();
   };
 
   return (
     <section className="home">
       <Title title={t.title.homePage} />
-      <p>a@mail.com</p>
       <div className="form-wrapper">
         <Form
           methods={methods}
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="form"
         >
           {formStep === 1 && (
@@ -66,18 +60,18 @@ export const Home: FC = () => {
               <div className="name">
                 <Form.Input
                   name="firstName"
-                  labelText="Name"
-                  InputProps={{ placeholder: "First name" }}
+                  labelText={t.form.label.name}
+                  InputProps={{ placeholder: t.form.placeholder.firstName }}
                 />
                 <Form.Input
                   name="lastName"
-                  InputProps={{ placeholder: "Last name" }}
+                  InputProps={{ placeholder: t.form.placeholder.lastName }}
                 />
               </div>
               <Form.Input
                 name="email"
                 labelText={t.form.label.email}
-                InputProps={{ placeholder: "example@mail.com" }}
+                InputProps={{ placeholder: t.form.placeholder.email }}
               />
               <Form.Phone
                 name="phoneNumber"
@@ -89,18 +83,18 @@ export const Home: FC = () => {
             <>
               <Form.Input
                 name="city"
-                labelText="City"
-                InputProps={{ placeholder: "Kyiv" }}
+                labelText={t.form.label.city}
+                InputProps={{ placeholder: t.form.placeholder.city }}
               />
               <Form.Input
                 name="state"
-                labelText="State"
-                InputProps={{ placeholder: "Kyiv region" }}
+                labelText={t.form.label.state}
+                InputProps={{ placeholder: t.form.placeholder.state }}
               />
               <Form.Input
                 name="country"
-                labelText="Country"
-                InputProps={{ placeholder: "Ukraine" }}
+                labelText={t.form.label.country}
+                InputProps={{ placeholder: t.form.placeholder.country }}
               />
             </>
           )}
@@ -110,47 +104,44 @@ export const Home: FC = () => {
                 name="message"
                 labelText={t.form.label.message}
                 minHeight={100}
-                InputProps={{ placeholder: "I'd like ..." }}
+                InputProps={{ placeholder: t.form.placeholder.message }}
               />
             </>
           )}
           {formStep === 4 && (
             <div className="data">
-              <p className="data__heading">
-                Check everything one more time, if you need to change something,
-                click the &quot;Back&quot; button.
-              </p>
+              <p className="data__heading">{t.common.testFormText}</p>
               <ul className="data__list">
                 <li className="data__item">
-                  <p>Name:</p>
+                  <p>{t.form.label.name}:</p>
                   <p className="data__info">
-                    {methods.watch("firstName")} {methods.watch("lastName")}
+                    {watch("firstName")} {watch("lastName")}
                   </p>
                 </li>
                 <li className="data__item">
-                  <p>Email:</p>
-                  <p className="data__info">{methods.watch("email")}</p>
+                  <p>{t.form.label.email}:</p>
+                  <p className="data__info">{watch("email")}</p>
                 </li>
                 <li className="data__item">
-                  <p>Phone Number:</p>
-                  <p className="data__info">{methods.watch("phoneNumber")}</p>
+                  <p>{t.form.label.phoneNumber}:</p>
+                  <p className="data__info">{watch("phoneNumber")}</p>
                 </li>
                 <li className="data__item">
-                  <p>City:</p>
-                  <p className="data__info">{methods.watch("city")}</p>
+                  <p>{t.form.label.city}:</p>
+                  <p className="data__info">{watch("city")}</p>
                 </li>
                 <li className="data__item">
-                  <p>State:</p>
-                  <p className="data__info">{methods.watch("state")}</p>
+                  <p>{t.form.label.state}:</p>
+                  <p className="data__info">{watch("state")}</p>
                 </li>
                 <li className="data__item">
-                  <p>Country:</p>
-                  <p className="data__info">{methods.watch("country")}</p>
+                  <p>{t.form.label.country}:</p>
+                  <p className="data__info">{watch("country")}</p>
                 </li>
                 <li className="data__item">
-                  <p>Message:</p>
+                  <p>{t.form.label.message}:</p>
                   <p className="data__info data__info--message">
-                    {methods.watch("message")}
+                    {watch("message")}
                   </p>
                 </li>
               </ul>
@@ -160,7 +151,7 @@ export const Home: FC = () => {
           <div className="form-btns">
             {formStep > 1 && (
               <button type="button" className="button" onClick={handlePrevStep}>
-                Back
+                {t.action.back}
               </button>
             )}
             {formStep === 1 && (
@@ -168,9 +159,9 @@ export const Home: FC = () => {
                 type="button"
                 className="button"
                 onClick={handleNextStep}
-                disabled={!allowToSecondStep}
+                disabled={isFirstStepValid}
               >
-                Next
+                {t.action.next}
               </button>
             )}
             {formStep === 2 && (
@@ -178,9 +169,9 @@ export const Home: FC = () => {
                 type="button"
                 className="button"
                 onClick={handleNextStep}
-                disabled={!allowToThirdStep}
+                disabled={isSecondStepValid}
               >
-                Next
+                {t.action.next}
               </button>
             )}
             {formStep === 3 && (
@@ -188,18 +179,18 @@ export const Home: FC = () => {
                 type="button"
                 className="button"
                 onClick={handleNextStep}
-                disabled={!methods.formState.isValid}
+                disabled={!formState.isValid}
               >
-                Next
+                {t.action.next}
               </button>
             )}
             {formStep === 4 && (
               <button
                 type="submit"
                 className="button"
-                disabled={!methods.formState.isValid}
+                disabled={!formState.isValid}
               >
-                Submit
+                {t.action.submit}
               </button>
             )}
           </div>
@@ -208,3 +199,37 @@ export const Home: FC = () => {
     </section>
   );
 };
+
+// const isStepValid = (step: number): boolean => {
+//   switch (step) {
+//     case 1:
+//       return isFirstStepValid;
+//     case 2:
+//       return isSecondStepValid;
+//     case 3:
+//       return !formState.isValid;
+//     default:
+//       return false;
+//   }
+// };
+
+/* {formStep > 1 && (
+                <button
+                  type="button"
+                  className="button"
+                  onClick={handlePrevStep}
+                >
+                  Back
+                </button>
+              )}
+              {formStep <= 4 && (
+                <button
+                  type="button"
+                  className="button"
+                  onClick={handleNextStep}
+                  disabled={isStepValid(formStep)}
+                >
+                  {formStep < 4 ? "Next" : "Submit"}
+                </button>
+              )}
+ */

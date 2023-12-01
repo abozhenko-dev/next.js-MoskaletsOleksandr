@@ -11,5 +11,11 @@ export enum ErrorMessagesEnum {
   EMAIL_PATTERN = "emailPattern",
   EMAIL_IS_INVALID = "emailIsInvalid",
   MAX_LENGTH = "maxLength",
-  MAX_LENGTH_MESSAGE = "maxLengthMessage"
+  MAX_LENGTH_MESSAGE = "maxLengthMessage",
+  PHONE_IS_TOO_SHORT = "phoneIsTooShort",
+  FIRST_NAME_IS_REQUIRED = "firstNameIsRequired",
+  LAST_NAME_IS_REQUIRED = "lastNameIsRequired",
+  CITY_IS_REQUIRED = "cityIsRequired",
+  STATE_IS_REQUIRED = "stateIsRequired",
+  COUNTRY_IS_REQUIRED = "countryIsRequired"
 }

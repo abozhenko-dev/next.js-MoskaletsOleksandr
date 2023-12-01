@@ -8,7 +8,9 @@ export const common: Record<Locales, ITranslation["common"]> = {
     message: "Message",
     phones: "Phones",
     phone: "Phone",
-    footerText: "Some footer"
+    footerText: "Some footer",
+    testFormText:
+      "Check everything one more time, if you need to change something, click the 'Back' button."
   },
   uk: {
     id: "Ідентифікатор",
@@ -17,6 +19,8 @@ export const common: Record<Locales, ITranslation["common"]> = {
     message: "Повідомлення",
     phones: "Телефони",
     phone: "Телефон",
-    footerText: "Певний футер (тут могла бути ваша реклама)"
+    footerText: "Певний футер (тут могла бути ваша реклама)",
+    testFormText:
+      "Перевірте все ще раз, якщо потрібно щось змінити, натисніть кнопку 'Назад'."
   }
 };

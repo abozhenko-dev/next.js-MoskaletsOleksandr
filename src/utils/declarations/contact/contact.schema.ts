@@ -12,7 +12,7 @@ import { Gender } from "./contact.types";
 
 export class ContactAddBody {
   @MaxLength(39, { message: ErrorMessagesEnum.MAX_LENGTH })
-  @Matches(/^[A-Za-zА-Яа-яЁё\s]+$/, {
+  @Matches(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ' ]+$/, {
     message: ErrorMessagesEnum.NAME_PATTERN
   })
   @IsNotEmpty({ message: ErrorMessagesEnum.NAME_IS_REQUIRED })

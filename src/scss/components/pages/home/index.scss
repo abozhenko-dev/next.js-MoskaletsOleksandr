@@ -13,8 +13,12 @@
 
     .name {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 4rem;
+
+      & > :last-child {
+        margin-top: 2.05rem;
+      }
     }
 
     &-btns {
