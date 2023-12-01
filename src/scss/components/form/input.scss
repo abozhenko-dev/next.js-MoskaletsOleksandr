@@ -6,7 +6,7 @@
     }
   }
 
-  label {
+  .label {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -72,6 +72,10 @@
   }
 
   &.error {
+    p {
+      color: var(--clr-error);
+    }
+
     .input-base {
       border-color: var(--clr-error);
     }

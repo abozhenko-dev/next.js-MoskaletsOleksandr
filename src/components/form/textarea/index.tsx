@@ -76,7 +76,7 @@ export const Textarea: FC<Omit<TextareaProps, "name">> = (props) => {
         "--max-height": `${maxHeight}rem`
       }}
     >
-      <label>
+      <div className="label">
         {labelText && labelText}
         <div className="textarea-base">
           <textarea
@@ -87,7 +87,7 @@ export const Textarea: FC<Omit<TextareaProps, "name">> = (props) => {
           />
         </div>
         {helperText && <p className="error">{helperText}</p>}
-      </label>
+      </div>
     </Tag>
   );
 };

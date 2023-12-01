@@ -56,7 +56,7 @@ export const Input: FC<Omit<InputProps, "name">> = (props) => {
 
   return (
     <Tag className={getClasses()}>
-      <label>
+      <div className="label">
         {labelText && labelText}
         <div className="input-base">
           {InputAdorment?.start && (
@@ -73,7 +73,7 @@ export const Input: FC<Omit<InputProps, "name">> = (props) => {
           )}
         </div>
         {helperText && <p className="error">{helperText}</p>}
-      </label>
+      </div>
     </Tag>
   );
 };
