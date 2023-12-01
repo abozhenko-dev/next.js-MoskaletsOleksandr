@@ -1,0 +1,51 @@
+.modal {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  padding: 5rem 2.5rem 2.5rem 2.5rem;
+  width: 50rem;
+  background-color: white;
+
+  &__backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 17, 17, 0.4);
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__close-btn {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__close-icon {
+    font-size: 4rem;
+    transition:
+      transform var(--transition),
+      color var(--transition);
+
+    &:hover,
+    :focus {
+      color: rgba(17, 17, 17, 0.8);
+      transform: scale(1.1);
+    }
+  }
+}

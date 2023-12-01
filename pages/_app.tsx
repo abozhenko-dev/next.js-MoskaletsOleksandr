@@ -1,13 +1,38 @@
 import React from "react";
-import '../styles/global.scss'
 
-type Props = {
-  Component: React.ComponentType
-  pageProps: any // поки не знаю який тут тип прописувати
+import { AppProps } from "next/app";
+
+import { SWRConfig } from "swr";
+
+import { $api } from "@services";
+
+import { NextPageWithLayout } from "@utils";
+
+import "../src/scss/globals.scss";
+
+interface Props extends AppProps {
+  Component: NextPageWithLayout;
 }
 
-const App = ({ Component, pageProps }: Props) => (
-    <Component {...pageProps} />
-)
+const App = (props: Props) => {
+  const { Component, pageProps } = props;
 
-export default App
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  return (
+    <>
+      <SWRConfig
+        value={{
+          fetcher: (url) => $api.get(url).then((res) => res.data),
+          revalidateIfStale: false,
+          revalidateOnFocus: false,
+          revalidateOnReconnect: false
+        }}
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </SWRConfig>
+    </>
+  );
+};
+
+export default App;

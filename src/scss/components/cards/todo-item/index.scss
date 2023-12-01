@@ -1,0 +1,19 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color var(--transition);
+
+  &:hover,
+  :focus p {
+    color: var(--clr-primary-600);
+  }
+
+  .title {
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

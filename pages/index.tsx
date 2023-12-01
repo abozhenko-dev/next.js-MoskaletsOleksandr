@@ -1,12 +1,22 @@
-import Layout from '../components/Layout/Layout'
-import Title from '../components/Title/Title'
+import { ReactElement } from "react";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js">
-    <section>
-      <Title title='Home page' />
-    </section>
-  </Layout>
-)
+import { MainLayout } from "@layouts";
 
-export default IndexPage
+import { Home } from "@pages";
+
+import { Meta } from "@components";
+
+import { NextPageWithLayout } from "@utils";
+
+const Page: NextPageWithLayout = () => {
+  return (
+    <>
+      <Meta meta={{ title: "Home | Next.js" }} />
+      <Home />
+    </>
+  );
+};
+
+Page.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;
+
+export default Page;

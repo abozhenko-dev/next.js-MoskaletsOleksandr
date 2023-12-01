@@ -1,0 +1,37 @@
+{
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "trailingComma": "none",
+  "printWidth": 80,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrder": [
+    "^@libs(/.*)?$",
+
+    "^react(/.*)?$",
+
+    "^next(/.*)?$",
+
+    "<THIRD_PARTY_MODULES>",
+
+    "^@layouts(/.*$(?<!\\.scss))?$",
+
+    "^@pages(/.*$(?<!\\.scss))?$",
+
+    "^@components(/.*$(?<!\\.scss))?$",
+
+    "^@hooks(/.*)?$",
+
+    "^@services(/.*)?$",
+
+    "^@utils(/.*)?$",
+
+    "^@assets(/.*)?$",
+
+    "^..(/.*$(?<!\\.scss))?$",
+    "^.(/.*$(?<!\\.scss))?$",
+
+    "(.scss)$",
+    "(.css)$"
+  ]
+}

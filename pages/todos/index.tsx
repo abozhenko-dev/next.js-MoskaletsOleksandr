@@ -1,31 +1,47 @@
-import { GetServerSideProps } from 'next'
+import { ReactElement } from "react";
 
-import { Todo } from '../../interfaces'
-import Title from '../../components/Title/Title'
-import { getAllToDos } from '../../services/todo.service'
-import ToDoList from '../../components/ToDoList/ToDoList'
-import Layout from '../../components/Layout/Layout'
+import { GetServerSideProps } from "next";
 
-type Props = {
-  items: Todo[]
-}
+import { SWRConfig } from "swr";
 
-const ToDosPage = ({ items }: Props) => (
-  <Layout title="Todos | Next.js">
-    <section>
-      <Title title='Todos List' />
-      <ToDoList items={items} />
-    </section>
-  </Layout>
-)
+import { MainLayout } from "@layouts";
+
+import { ToDos } from "@pages";
+
+import { Meta } from "@components";
+
+import { ToDoService } from "@services";
+
+import { DefaultPageProps, NextPageWithLayout } from "@utils";
+
+const Page: NextPageWithLayout<DefaultPageProps> = (props) => {
+  const { fallback, meta } = props;
+
+  return (
+    <SWRConfig value={{ fallback }}>
+      <Meta meta={meta} />
+      <ToDos />
+    </SWRConfig>
+  );
+};
+
+Page.getLayout = (page: ReactElement) => (
+  <MainLayout fallback={page?.props?.fallback}>{page}</MainLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const items: Todo[] = await getAllToDos();
+  const { data } = await ToDoService.getAll();
+
   return {
     props: {
-      items: items.slice(0, 30)
+      meta: {
+        title: `Todos | Next.js`
+      },
+      fallback: {
+        "/todos": data
+      }
     }
-  }
-}
+  };
+};
 
-export default ToDosPage;
+export default Page;
