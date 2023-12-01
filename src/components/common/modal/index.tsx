@@ -3,7 +3,7 @@ import { FC, MouseEvent, ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
-import { useScrollLock } from "@hooks";
+import { useBrowser, useScrollLock } from "@hooks";
 
 export interface ModalProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ export interface ModalProps {
 export const Modal: FC<ModalProps> = (props) => {
   const { children, onClose, isVisible } = props;
   const { lockScroll, unlockScroll } = useScrollLock();
-  const [isBrowser, setIsBrowser] = useState(false);
+  const { isBrowser } = useBrowser();
 
   useEffect(() => {
     const handleKeyDown: (e: WindowEventMap["keydown"]) => void = (e) => {
@@ -40,10 +40,6 @@ export const Modal: FC<ModalProps> = (props) => {
 
     lockScroll();
   }, [isVisible, lockScroll]);
-
-  useEffect(() => {
-    setIsBrowser(true);
-  }, []);
 
   const handleClose = () => {
     onClose();

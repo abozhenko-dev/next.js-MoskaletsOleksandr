@@ -27,26 +27,26 @@
       gap: 2rem;
     }
 
-    button {
-      border: none;
-      border-radius: 0.7rem;
-      width: 12rem;
-      height: 3rem;
-      box-shadow: 3px 5px 5px rgb(160, 160, 160);
-      background-color: var(--clr-default-200);
-      transition: background-color var(--transition);
-      cursor: pointer;
+    // button {
+    //   border: none;
+    //   border-radius: 0.7rem;
+    //   width: 12rem;
+    //   height: 3rem;
+    //   box-shadow: 3px 5px 5px rgb(160, 160, 160);
+    //   background-color: var(--clr-default-200);
+    //   transition: background-color var(--transition);
+    //   cursor: pointer;
 
-      &:hover,
-      :focus {
-        background-color: var(--clr-default-300);
-      }
+    //   &:hover,
+    //   :focus {
+    //     background-color: var(--clr-default-300);
+    //   }
 
-      &:disabled {
-        background-color: var(--clr-default-100);
-        cursor: not-allowed;
-      }
-    }
+    //   &:disabled {
+    //     background-color: var(--clr-default-100);
+    //     cursor: not-allowed;
+    //   }
+    // }
 
     .data__heading {
       margin-bottom: 2rem;

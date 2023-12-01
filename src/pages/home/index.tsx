@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useForm } from "react-hook-form";
@@ -7,40 +7,63 @@ import { Form, Title } from "@components";
 
 import { useTranslation } from "@hooks";
 
-import { ITestData, TestFormBody, isFieldValid } from "@utils";
+import { TestFormBody } from "@utils";
 
 export const Home: FC = () => {
-  const [formStep, setFormStep] = useState<number | null>(1);
+  const [formStep, setFormStep] = useState<number>(1);
 
   const t = useTranslation();
-  const methods = useForm<ITestData>({
+  const methods = useForm<TestFormBody>({
     resolver: classValidatorResolver(TestFormBody),
     mode: "onChange"
   });
-  const { formState, watch, handleSubmit, reset } = methods;
+  const { handleSubmit, reset, trigger, getValues } = methods;
 
-  const isFirstStepValid: boolean = !(
-    isFieldValid("firstName", formState) &&
-    isFieldValid("lastName", formState) &&
-    isFieldValid("email", formState) &&
-    isFieldValid("phoneNumber", formState)
-  );
+  const formValues = useMemo(() => {
+    if (formStep < 4) return;
 
-  const isSecondStepValid: boolean = !(
-    isFieldValid("city", formState) &&
-    isFieldValid("state", formState) &&
-    isFieldValid("country", formState)
-  );
+    return getValues();
+  }, [formStep, getValues]);
 
-  const handlePrevStep: () => void = () => {
+  const handlePrevStep = () => {
+    if (formStep <= 1) return;
+
     setFormStep((prev) => prev - 1);
   };
 
-  const handleNextStep: () => void = () => {
-    setFormStep((prev) => prev + 1);
+  const handleNextStep = async () => {
+    switch (formStep) {
+      case 1: {
+        const isValid = await trigger([
+          "firstName",
+          "lastName",
+          "email",
+          "phoneNumber"
+        ]);
+        if (isValid) setFormStep(2);
+        break;
+      }
+      case 2: {
+        const isValid = await trigger(["city", "state", "country"]);
+        if (isValid) setFormStep(3);
+        break;
+      }
+      case 3: {
+        const isValid = await trigger("message");
+        if (isValid) setFormStep(4);
+        break;
+      }
+      case 4: {
+        const isValid = await trigger();
+        if (isValid) handleSubmit(onSubmit)();
+        break;
+      }
+      default:
+        break;
+    }
   };
 
-  const onSubmit = (data: ITestData): void => {
+  const onSubmit = (data: TestFormBody) => {
     window.alert(JSON.stringify(data, null, 2));
     setFormStep(1);
     reset();
@@ -115,33 +138,33 @@ export const Home: FC = () => {
                 <li className="data__item">
                   <p>{t.form.label.name}:</p>
                   <p className="data__info">
-                    {watch("firstName")} {watch("lastName")}
+                    {formValues.firstName} {formValues.lastName}
                   </p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.email}:</p>
-                  <p className="data__info">{watch("email")}</p>
+                  <p className="data__info">{formValues.email}</p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.phoneNumber}:</p>
-                  <p className="data__info">{watch("phoneNumber")}</p>
+                  <p className="data__info">{formValues.phoneNumber}</p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.city}:</p>
-                  <p className="data__info">{watch("city")}</p>
+                  <p className="data__info">{formValues.city}</p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.state}:</p>
-                  <p className="data__info">{watch("state")}</p>
+                  <p className="data__info">{formValues.state}</p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.country}:</p>
-                  <p className="data__info">{watch("country")}</p>
+                  <p className="data__info">{formValues.country}</p>
                 </li>
                 <li className="data__item">
                   <p>{t.form.label.message}:</p>
                   <p className="data__info data__info--message">
-                    {watch("message")}
+                    {formValues.message}
                   </p>
                 </li>
               </ul>
@@ -154,43 +177,9 @@ export const Home: FC = () => {
                 {t.action.back}
               </button>
             )}
-            {formStep === 1 && (
-              <button
-                type="button"
-                className="button"
-                onClick={handleNextStep}
-                disabled={isFirstStepValid}
-              >
-                {t.action.next}
-              </button>
-            )}
-            {formStep === 2 && (
-              <button
-                type="button"
-                className="button"
-                onClick={handleNextStep}
-                disabled={isSecondStepValid}
-              >
-                {t.action.next}
-              </button>
-            )}
-            {formStep === 3 && (
-              <button
-                type="button"
-                className="button"
-                onClick={handleNextStep}
-                disabled={!formState.isValid}
-              >
-                {t.action.next}
-              </button>
-            )}
-            {formStep === 4 && (
-              <button
-                type="submit"
-                className="button"
-                disabled={!formState.isValid}
-              >
-                {t.action.submit}
+            {formStep >= 1 && (
+              <button type="button" className="button" onClick={handleNextStep}>
+                {formStep === 4 ? t.action.submit : t.action.next}
               </button>
             )}
           </div>
@@ -199,37 +188,3 @@ export const Home: FC = () => {
     </section>
   );
 };
-
-// const isStepValid = (step: number): boolean => {
-//   switch (step) {
-//     case 1:
-//       return isFirstStepValid;
-//     case 2:
-//       return isSecondStepValid;
-//     case 3:
-//       return !formState.isValid;
-//     default:
-//       return false;
-//   }
-// };
-
-/* {formStep > 1 && (
-                <button
-                  type="button"
-                  className="button"
-                  onClick={handlePrevStep}
-                >
-                  Back
-                </button>
-              )}
-              {formStep <= 4 && (
-                <button
-                  type="button"
-                  className="button"
-                  onClick={handleNextStep}
-                  disabled={isStepValid(formStep)}
-                >
-                  {formStep < 4 ? "Next" : "Submit"}
-                </button>
-              )}
- */

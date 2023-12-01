@@ -6,7 +6,7 @@ import { SWRConfig } from "swr";
 
 import { $api } from "@services";
 
-import { NextPageWithLayout } from "@utils";
+import { BrowserProvider, NextPageWithLayout } from "@utils";
 
 import "../src/scss/globals.scss";
 
@@ -29,7 +29,9 @@ const App = (props: Props) => {
           revalidateOnReconnect: false
         }}
       >
-        {getLayout(<Component {...pageProps} />)}
+        <BrowserProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </BrowserProvider>
       </SWRConfig>
     </>
   );

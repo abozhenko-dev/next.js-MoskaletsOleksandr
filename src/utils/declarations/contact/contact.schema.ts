@@ -3,7 +3,8 @@ import {
   IsEnum,
   IsNotEmpty,
   Matches,
-  MaxLength
+  MaxLength,
+  MinLength
 } from "class-validator";
 
 import { ErrorMessagesEnum } from "../error/error.enum";
@@ -23,6 +24,7 @@ export class ContactAddBody {
   @IsNotEmpty({ message: ErrorMessagesEnum.EMAIL_IS_REQUIRED })
   email: string;
 
+  @MinLength(7, { message: ErrorMessagesEnum.PHONE_IS_TOO_SHORT })
   @IsNotEmpty({ message: ErrorMessagesEnum.PHONE_IS_REQUIRED })
   phoneNumber: string;
 

@@ -24,7 +24,10 @@ export const Contacts = () => {
   const [contacts, setContacts] = useState<IContact[]>(fakeContacts);
   const [isTestModalOpen, setIsTestModalOpen] = useState<boolean>(false);
   const t = useTranslation();
-  const methods = useForm({ resolver: classValidatorResolver(ContactAddBody) });
+  const methods = useForm({
+    resolver: classValidatorResolver(ContactAddBody),
+    mode: "onChange"
+  });
 
   const genderRadioOptions: {
     label: string;
@@ -52,7 +55,7 @@ export const Contacts = () => {
           toogleTestModal();
         }}
       >
-        Open test modal
+        {t.action.openTestModal}
       </button>
       <div>
         <Form

@@ -24,19 +24,18 @@ interface RadioGroupProps extends RadioProps {
 export const Radio: FC<Omit<RadioProps, "labelText">> = (props) => {
   const { label, wrapperTag: WrapperTag = "div", disabled, ...rest } = props;
 
-  // const getClasses = () => {
-  //   let classes = "selector radio";
+  const getClasses = () => {
+    let classes = "selector radio";
 
-  //   if (disabled) {
-  //     classes += " disabled";
-  //   }
+    if (disabled) {
+      classes += " disabled";
+    }
 
-  //   return classes;
-  // };
+    return classes;
+  };
 
   return (
-    // <WrapperTag className={getClasses()}>
-    <WrapperTag className="field">
+    <WrapperTag className={getClasses()}>
       <label className="selector-wrapper">
         <input type="radio" disabled={disabled} {...rest} />
         <span className="selector-label">{label}</span>
