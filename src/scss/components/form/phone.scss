@@ -1,0 +1,14 @@
+.phone {
+  width: 100%;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 1.6rem;
+  }
+
+  .error {
+    color: var(--clr-error);
+  }
+}

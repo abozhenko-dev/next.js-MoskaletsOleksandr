@@ -1,0 +1,114 @@
+// ФУНКЦИИ====================================================================
+@import "./functions/em";
+@import "./functions/fluid";
+
+// </ФУНКЦИИ>=================================================================
+
+// <Подключаем шрифты>========================================================
+@import "./settings/fonts";
+
+// </Подключаем шрифты>=======================================================
+
+// <ОБНУЛЕНИЕ>================================================================
+@import "./settings/normalize";
+
+// </ОБНУЛЕНИЕ>===============================================================
+
+// <ПЕРЕМЕННЫЕ>===============================================================
+$containerWidth: 120rem;
+
+:root {
+  // base
+  --font-family: "Poppins", sans-serif;
+  --font-weight: 400;
+  --content-width: 117rem;
+  --container-offset: 1.5rem;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+  --transition: 0.3s;
+
+  // General
+  --clr-default-100: #fff;
+  --clr-default-200: #f3f3d9;
+  --clr-default-300: #d6d6a5;
+  --clr-default-400: #c700ac;
+  --clr-default-600: #022596;
+  --clr-default-800: rgba(31, 31, 31, 0.473);
+  --clr-default-900: #111;
+
+  // Primary
+  --clr-primary-400: #00a732;
+  --clr-primary-600: rgb(173, 2, 2);
+
+  --clr-error: rgb(192, 19, 19);
+}
+
+// </ПЕРЕМЕННЫЕ>==============================================================
+
+// <ОБОЛОЧКИ>================================================================
+body {
+  font-size: 1.4rem;
+  color: var(--clr-default-900);
+  background-color: var(--clr-default-100);
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 32rem;
+  min-height: 100%;
+}
+
+section {
+  padding-block: 15px;
+}
+
+// </ОБОЛОЧКИ>===============================================================
+
+// <СТИЛИ>===================================================================
+
+// Components - Form
+@import "./components/form/textarea.scss";
+@import "./components/form/input.scss";
+@import "./components/form/radio.scss";
+@import "./components/form/phone.scss";
+@import "./components/form/select.scss";
+// Components - Form
+
+// Components - UI
+@import "./components/ui/container/index.scss";
+@import "./components/ui/title/index.scss";
+// Components - UI
+
+// Components - Common
+@import "./components/common/modal/index.scss";
+// Components - Common
+
+// Components - Modals
+@import "./components/common/modal/index.scss";
+// Components - Modals
+
+// Components - Sections
+@import "./components/sections/footer/index.scss";
+@import "./components/sections/header/index.scss";
+// Components - Sections
+
+// Components - Cards
+@import "./components/cards/todo-item/index.scss";
+@import "./components/cards/contact/index.scss";
+// Components - Cards
+
+// Components - Pages
+@import "./components/pages/contacts/index.scss";
+@import "./components/pages/home/index.scss";
+@import "./components/pages/todo/index.scss";
+@import "./components/pages/todos/index.scss";
+// Components - Pages
+
+// <СТИЛИ>===================================================================

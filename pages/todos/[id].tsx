@@ -1,39 +1,48 @@
+import { ReactElement } from "react";
+
 import { GetServerSideProps } from "next";
-import Link from "next/link";
-import { useRouter } from "next/router"
-import Layout from "../../components/Layout/Layout";
-import ToDoDetail from "../../components/ToDoDetail/ToDoDetail";
-import { Todo } from "../../interfaces";
-import { getToDoById } from "../../services/todo.service";
 
-type Props = {
-  todo: Todo
-}
+import { SWRConfig } from "swr";
 
-const ToDoPage = ({todo}: Props) => {
-  const router = useRouter();
-  const { id } = router.query;
+import { MainLayout } from "@layouts";
+
+import { ToDo } from "@pages";
+
+import { Meta } from "@components";
+
+import { ToDoService } from "@services";
+
+import { DefaultPageProps, NextPageWithLayout } from "@utils";
+
+const Page: NextPageWithLayout<DefaultPageProps> = (props) => {
+  const { fallback, meta } = props;
 
   return (
-    <Layout title={`Todo #${id}  | Next.js`}>
-      <section>
-        <Link href="/todos">
-          Back to Todos
-        </Link>
-        <ToDoDetail todo={todo} />
-      </section>
-    </Layout>
-  )
-}
+    <SWRConfig value={{ fallback }}>
+      <Meta meta={meta} />
+      <ToDo />
+    </SWRConfig>
+  );
+};
+
+Page.getLayout = (page: ReactElement) => (
+  <MainLayout fallback={page?.props?.fallback}>{page}</MainLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params;
-  const todo: Todo = await getToDoById(id as string);
+  const { data } = await ToDoService.getOneById(id as string);
+
   return {
     props: {
-      todo
+      meta: {
+        title: `Todo #${id}  | Next.js`
+      },
+      fallback: {
+        ["/todos/" + id]: data
+      }
     }
-  }
-}
+  };
+};
 
-export default ToDoPage;
+export default Page;
