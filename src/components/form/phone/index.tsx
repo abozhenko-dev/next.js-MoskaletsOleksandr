@@ -92,7 +92,7 @@ export const ControlledPhone: FC<Omit<PhoneProps, "value" | "onChange">> = (
       control={control}
       render={({ field, fieldState }) => (
         <Phone
-          value={field.value || ""}
+          value={field.value || "+1"} // "+1" So that the country code is not empty after submission
           onChange={field.onChange}
           error={Boolean(fieldState.error)}
           helperText={
